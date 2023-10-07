@@ -1,31 +1,27 @@
 import cl from './Navbar.module.scss';
-import { HStack, VStack } from "@/shared/ui/Stack";
-import { AppLink } from "@/shared/ui/AppLink";
+import { HStack } from "@/shared/ui/Stack";
 import { classNames } from "@/shared/lib/classNames/classNames";
 import { Logo } from "@/shared/ui/Logo/Logo";
 import { ThemeSwitcher } from "@/features/themeSwitcher";
 import { Text } from "@/shared/ui/Text";
+import { Burger } from '@/features/burger';
+import { onSmooth } from '@/shared/lib/onSmooth/onSmooth';
 
 export const Navbar = () => {
-    const onSmooth = (id: string) => {
-        const targetElement = document.getElementById(id);
-
-        if (targetElement) {
-            const elementPosition = targetElement.getBoundingClientRect().top + window.scrollY;
-
-            window.scrollTo({
-                top: elementPosition - 34,
-                behavior: 'smooth'
-            })
-        }
-    }
-
     return (
         <HStack
             justify="between"
             className={classNames(cl.navbar, {}, ['container'])}
         >
-            <Logo />
+            <HStack gap='16'>
+                <div className={cl.burger}>
+                    <div className={cl.burgerWrapper}>
+                        <Burger />
+                    </div>
+                </div>
+
+                <Logo />
+            </HStack>
 
             <HStack
                 justify='between'
@@ -34,49 +30,41 @@ export const Navbar = () => {
 
                 <div
                     className={cl.item}
-                    onClick={() => onSmooth('about')}
+                    onClick={() => onSmooth('about', 34)}
                 >
                     <Text size="s" title="Обо мне" />
                 </div>
 
                 <div
                     className={cl.item}
-                    onClick={() => onSmooth('skills')}
+                    onClick={() => onSmooth('skills', 34)}
                 >
                     <Text size="s" title="Навыки" />
                 </div>
 
                 <div
                     className={cl.item}
-                    onClick={() => onSmooth('portfolio')}
+                    onClick={() => onSmooth('portfolio', 34)}
                 >
                     <Text size="s" title="Портфолио" />
                 </div>
 
                 <div
                     className={cl.item}
-                    onClick={() => onSmooth('experience')}
+                    onClick={() => onSmooth('experience', 34)}
                 >
                     <Text size="s" title="Опыт" />
                 </div>
 
                 <div
                     className={cl.item}
-                    onClick={() => onSmooth('contacts')}
+                    onClick={() => onSmooth('contacts', 34)}
                 >
                     <Text size="s" title="Контакты" />
                 </div>
             </HStack>
 
-            <HStack gap='16'>
-                <ThemeSwitcher />
-
-                <VStack className={cl.burger} justify='between'>
-                    <div className={cl.burger_one}/>
-                    <div className={cl.burger_two}/>
-                    <div className={cl.burger_three}/>
-                </VStack>
-            </HStack>
+            <ThemeSwitcher />
         </HStack>
     )
 }
